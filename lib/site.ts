@@ -4,9 +4,9 @@ export const site = {
   heroHeadline: "Edits that feel expensive — and sell.",
   heroSub:
     "Short-form, long-form, reels, ads, YouTube. Clean pacing, sharp story, strong retention.",
-  email: "waterlil@email.com",
+  email: "riilcursed@gmail.com",
   links: {
-    telegram: "https://t.me/yourhandle",
+    telegram: "https://t.me/@waterl1l",
     instagram: "https://instagram.com/yourhandle",
     x: "https://x.com/yourhandle"
   }

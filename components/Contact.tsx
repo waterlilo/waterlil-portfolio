@@ -42,7 +42,6 @@ export function Contact() {
             <div className="mt-5 flex flex-wrap gap-3">
               <SocialButton href={`mailto:${site.email}`} label="Email" />
               <SocialButton href={site.links.telegram} label="Telegram" />
-              <SocialButton href={site.links.instagram} label="Instagram" />
             </div>
 
             <div className="mt-8 border-t border-line pt-4 text-xs text-fg-dim">

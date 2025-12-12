@@ -12,7 +12,7 @@ export function About() {
           <div className="relative overflow-hidden rounded-[22px] border border-line bg-white/0">
             <div className="relative aspect-[4/5]">
               <Image
-                src="/thumbs/t1.svg"
+                src="/thumbs/Kitty-_.png"
                 alt="Waterlil portrait placeholder"
                 fill
                 className="object-cover"
