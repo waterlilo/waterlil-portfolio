@@ -1,165 +1,182 @@
 "use client";
 
+import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useId } from "react";
 import type { Project } from "./ProjectCard";
-import { Badge } from "./Badge";
 
-function Video({ p }: { p: Project }) {
-  if (p.video.kind === "comingSoon") {
-    return (
-      <div className="aspect-video w-full rounded-2xl border border-line bg-black/40 grid place-items-center">
-        <div className="text-sm text-fg-dim">Coming soon</div>
-      </div>
-    );
-  }
+type VideoSrc =
+  | { kind: "youtube"; id: string }
+  | { kind: "vimeo"; id: string }
+  | { kind: "mp4"; src: string }
+  | { kind: "comingSoon" };
 
-  if (p.video.kind === "youtube") {
-    const src = `https://www.youtube-nocookie.com/embed/${p.video.id}?rel=0&modestbranding=1`;
-    return (
-      <div className="aspect-video w-full overflow-hidden rounded-2xl border border-line bg-black/30">
-        <iframe
-          className="h-full w-full"
-          src={src}
-          title={p.title}
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
-    );
-  }
-
-  if (p.video.kind === "vimeo") {
-    const src = `https://player.vimeo.com/video/${p.video.id}`;
-    return (
-      <div className="aspect-video w-full overflow-hidden rounded-2xl border border-line bg-black/30">
-        <iframe
-          className="h-full w-full"
-          src={src}
-          title={p.title}
-          loading="lazy"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
-    );
-  }
-
-  // mp4
-  return (
-    <div className="aspect-video w-full overflow-hidden rounded-2xl border border-line bg-black/30">
-      <video className="h-full w-full" controls preload="metadata">
-        <source src={p.video.src} />
-      </video>
-    </div>
-  );
-}
+type ModalProject = Project & {
+  year?: string | number;
+  tools?: string[];
+  description?: string;
+  role?: string;
+  category?: string;
+  video?: VideoSrc;
+};
 
 export function ProjectModal({
   project,
   onClose
 }: {
-  project: Project | null;
+  project: ModalProject | null;
   onClose: () => void;
 }) {
-  const titleId = useId();
-
+  // ESC close
   useEffect(() => {
     if (!project) return;
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
-
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener("keydown", onKey);
-    };
+    return () => window.removeEventListener("keydown", onKey);
   }, [project, onClose]);
 
+  // lock body scroll
+  useEffect(() => {
+    if (!project) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [project]);
+
   return (
-    <AnimatePresence>
+    // ✅ важно: mode="wait" для красивого переключения/закрытия
+    <AnimatePresence mode="wait">
       {project && (
         <motion.div
-          className="fixed inset-0 z-[60]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          role="dialog"
+          className="fixed inset-0 z-50"
           aria-modal="true"
-          aria-labelledby={titleId}
+          role="dialog"
+          aria-label={`Project details: ${project.title}`}
         >
-          <button
-            className="absolute inset-0 bg-black/70"
+          {/* overlay */}
+          <motion.button
+            type="button"
+            aria-label="Close modal"
+            className="absolute inset-0 bg-black/70 backdrop-blur-[2px]"
             onClick={onClose}
-            aria-label="Close modal overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
           />
 
-          <motion.div
-            className="absolute left-1/2 top-1/2 w-[min(94vw,980px)] -translate-x-1/2 -translate-y-1/2 rounded-[22px] border border-line bg-bg-soft shadow-soft"
-            initial={{ y: 16, opacity: 0, scale: 0.98 }}
-            animate={{ y: 0, opacity: 1, scale: 1, transition: { duration: 0.25 } }}
-            exit={{ y: 16, opacity: 0, scale: 0.98, transition: { duration: 0.2 } }}
-          >
-            <div className="flex items-center justify-between gap-4 border-b border-line px-5 py-4">
-              <div>
-                <div id={titleId} className="text-sm font-semibold text-fg">
-                  {project.title}
-                </div>
-                <div className="mt-1 text-xs text-fg-dim">
-                  {project.type}
-                  {project.meta ? ` · ${project.meta}` : ""}
-                </div>
-              </div>
-
+          {/* centered wrapper */}
+          <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6">
+            <motion.div
+              // ✅ ключевое: тот же layoutId что и у ProjectCard
+              layoutId={`project-${project.id}`}
+              className="relative w-full max-w-[980px] overflow-hidden rounded-2xl border border-white/10 bg-bg-soft/95 shadow-soft"
+              initial={{ opacity: 0, y: 24, scale: 0.98, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: 18, scale: 0.99, filter: "blur(6px)" }}
+              transition={{ type: "spring", stiffness: 320, damping: 30, mass: 0.8 }}
+              // ✅ чтобы клик внутри модалки не “пробивал” в overlay
+              onClick={(e) => e.stopPropagation()}
+            >
               <button
-                type="button"
                 onClick={onClose}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white/0 text-fg-dim hover:bg-white/5 hover:text-fg transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
-                aria-label="Close modal"
+                aria-label="Close"
+                className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-black/30 text-fg hover:bg-black/45 focus:outline-none focus:ring-2 focus:ring-white/20"
               >
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-                  <path
-                    d="M5 5l8 8M13 5l-8 8"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                ✕
               </button>
-            </div>
 
-            <div className="grid gap-5 p-5 md:grid-cols-[1.4fr_1fr]">
-              <Video p={project} />
+              <div className="max-h-[min(78vh,760px)] overflow-y-auto overscroll-contain">
+                <div className="p-5 sm:p-6">
+                  {/* header */}
+                  <div className="mb-4">
+                    <div className="text-sm text-fg-dim">
+                      {project.category ?? ""}
+                      {project.tools?.length ? ` • ${project.tools.join(", ")}` : ""}
+                      {project.year ? ` • ${project.year}` : ""}
+                    </div>
+                    <div className="mt-2 text-lg sm:text-xl font-semibold text-fg">
+                      {project.title}
+                    </div>
+                  </div>
 
-              <div className="space-y-4">
-                <div className="text-sm text-fg-dim leading-relaxed">{project.summary}</div>
+                  <div className="grid gap-5 sm:gap-6 md:grid-cols-[1.6fr_1fr]">
+                    {/* media */}
+                    <div className="overflow-hidden rounded-xl border border-white/10 bg-black/20">
+                      <div className="aspect-video w-full">
+                        {project.video?.kind === "youtube" ? (
+                          <iframe
+                            className="h-full w-full"
+                            src={`https://www.youtube.com/embed/${project.video.id}`}
+                            title={project.title}
+                            loading="lazy"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        ) : project.video?.kind === "vimeo" ? (
+                          <iframe
+                            className="h-full w-full"
+                            src={`https://player.vimeo.com/video/${project.video.id}`}
+                            title={project.title}
+                            loading="lazy"
+                            allow="autoplay; fullscreen; picture-in-picture"
+                            allowFullScreen
+                          />
+                        ) : project.video?.kind === "mp4" ? (
+                          <video className="h-full w-full" controls preload="metadata">
+                            <source src={project.video.src} />
+                          </video>
+                        ) : (
+                          <div className="grid h-full w-full place-items-center text-sm text-fg-dim">
+                            Coming soon
+                          </div>
+                        )}
+                      </div>
+                    </div>
 
-                <div className="space-y-2">
-                  <div className="text-xs tracking-[0.18em] uppercase text-fg-dim">Role</div>
-                  <div className="text-sm text-fg">{project.role}</div>
-                </div>
+                    {/* details */}
+                    <div className="space-y-4">
+                      {project.description ? (
+                        <div className="text-sm leading-relaxed text-fg-dim">
+                          {project.description}
+                        </div>
+                      ) : null}
 
-                <div className="space-y-2">
-                  <div className="text-xs tracking-[0.18em] uppercase text-fg-dim">Tools</div>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tools.map((t) => (
-                      <Badge key={t}>{t}</Badge>
-                    ))}
+                      {project.role ? (
+                        <div>
+                          <div className="text-xs tracking-[0.18em] uppercase text-fg-dim">
+                            Role
+                          </div>
+                          <div className="mt-2 text-sm text-fg">{project.role}</div>
+                        </div>
+                      ) : null}
+
+                      {project.tools?.length ? (
+                        <div>
+                          <div className="text-xs tracking-[0.18em] uppercase text-fg-dim">
+                            Tools
+                          </div>
+                          <div className="mt-2 flex flex-wrap gap-2">
+                            {project.tools.map((t) => (
+                              <span
+                                key={t}
+                                className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-fg-dim"
+                              >
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
-
-                <div className="pt-2">
-                  <Badge className="text-fg">{project.category}</Badge>
-                </div>
               </div>
-            </div>
-          </motion.div>
+
+              <div className="h-3" />
+            </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
