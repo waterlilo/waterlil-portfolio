@@ -1,15 +1,15 @@
 [
   {
-    "id": "p1",
-    "title": "YouTube Documentary Cut",
-    "category": "Long-form",
-    "type": "YouTube",
-    "meta": "18:42 · 2025",
-    "thumb": "/thumbs/t1.svg",
-    "video": { "kind": "youtube", "id": "i4pS-qQLtqc" },
-    "summary": "Tight pacing + clarity. Rebuilt structure, boosted retention with pattern interrupts.",
-    "role": "Edit · Sound · Color",
-    "tools": ["Premiere Pro", "After Effects"]
+   "id": "p1",
+   "title": "Short-form Motion Edit",
+   "category": "Short-form",
+   "type": "Short-form",
+   "meta": "After Effects · 2025",
+   "thumb": "/thumbs/inkognito.png",
+   "video": { "kind": "youtube", "id": "2jS3Sxh-hqw" },
+   "summary": "Dynamic short-form edit focused on rhythm, motion accents and visual clarity.",
+   "role": "Motion design · Editing",
+   "tools": ["After Effects"]
   },
   {
     "id": "p2",
