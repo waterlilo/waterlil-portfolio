@@ -3,10 +3,24 @@ import { Section } from "@/components/Section";
 import { Badge } from "@/components/Badge";
 import { Reveal } from "@/components/motion";
 import { site, softwareBadges } from "@/lib/site";
+import { WaveGL } from "@/components/WaveGL";
+import { AboutSnow } from "@/components/AboutSnow";
+
 
 export function About() {
   return (
-    <Section id="about" eyebrow="About" title={`It’s ${site.name}`}>
+    <Section
+      id="about"
+      eyebrow="About"
+      title={`It’s ${site.name}`}
+      background={
+    <>
+      <WaveGL />
+      <div className="absolute inset-0 bg-black/35" />
+      <AboutSnow count={14} />
+    </>
+  }
+    >
       <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-start">
         <Reveal>
           <div className="relative overflow-hidden rounded-[22px] border border-line bg-white/0">

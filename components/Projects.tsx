@@ -173,7 +173,7 @@ export function Projects() {
         <motion.div
           className="mt-10 overflow-hidden"
           animate={currentHeight != null ? { height: currentHeight } : undefined}
-          transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
           style={{ height: currentHeight != null ? currentHeight : "auto" }}
         >
           <motion.div layout className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -185,7 +185,7 @@ export function Projects() {
                   initial={{ opacity: 0, y: 10, scale: 0.985 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.985 }}
-                  transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <ProjectCard project={p} onOpen={setOpen} />
                 </motion.div>
