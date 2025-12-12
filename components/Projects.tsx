@@ -8,6 +8,7 @@ import projectsRaw from "@/data/projects.json";
 import { ProjectCard, type Project } from "./ProjectCard";
 import { ProjectModal } from "./ProjectModal";
 import { Reveal } from "./motion";
+import { WaveGL } from "@/components/WaveGL";
 
 type Tab = "All" | Category;
 
@@ -23,25 +24,45 @@ export function Projects() {
   }, [projects, tab]);
 
   return (
-    <Section id="projects" eyebrow="Projects" title="Recent Work">
-      <Reveal>
-        <div className="flex items-center justify-between gap-6 flex-wrap">
-          <Tabs items={categories as any} value={tab} onChange={(v) => setTab(v as Tab)} />
-          <div className="text-xs text-fg-dim">
-            {filtered.length} project{filtered.length === 1 ? "" : "s"}
+    <Section
+      id="projects"
+      eyebrow="Projects"
+      title="Recent Work"
+      className="overflow-hidden"
+      background={
+  <>
+    <WaveGL />
+    <div className="absolute inset-0 bg-black/35" />
+  </>
+}
+
+    >
+      
+
+      <div className="relative z-10">
+        <Reveal>
+          <div className="flex items-center justify-between gap-6 flex-wrap">
+            <Tabs
+              items={categories as any}
+              value={tab}
+              onChange={(v) => setTab(v as Tab)}
+            />
+            <div className="text-xs text-fg-dim">
+              {filtered.length} project{filtered.length === 1 ? "" : "s"}
+            </div>
           </div>
+        </Reveal>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((p, idx) => (
+            <Reveal key={p.id} delay={Math.min(0.06 * idx, 0.24)}>
+              <ProjectCard project={p} onOpen={setOpen} />
+            </Reveal>
+          ))}
         </div>
-      </Reveal>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((p, idx) => (
-          <Reveal key={p.id} delay={Math.min(0.06 * idx, 0.24)}>
-            <ProjectCard project={p} onOpen={setOpen} />
-          </Reveal>
-        ))}
+        <ProjectModal project={open} onClose={() => setOpen(null)} />
       </div>
-
-      <ProjectModal project={open} onClose={() => setOpen(null)} />
     </Section>
   );
 }

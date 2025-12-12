@@ -5,24 +5,28 @@ export function Section({
   eyebrow,
   title,
   children,
-  className
+  className,
+  background
 }: {
   id?: string;
   eyebrow?: string;
   title?: string;
   children: React.ReactNode;
   className?: string;
+  background?: React.ReactNode;
 }) {
   return (
     <section
       id={id}
       className={cn(
-        "scroll-mt-28 border-t border-line/80",
+        "relative scroll-mt-28 border-t border-line/80",
         "py-16 md:py-24",
         className
       )}
     >
-      <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
+      {background}
+
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 md:px-8">
         {(eyebrow || title) && (
           <div className="mb-10 md:mb-12">
             {eyebrow && (
@@ -37,6 +41,7 @@ export function Section({
             )}
           </div>
         )}
+
         {children}
       </div>
     </section>
