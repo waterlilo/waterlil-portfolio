@@ -1,0 +1,122 @@
+[
+  {
+    "id": "p1",
+    "title": "YouTube Documentary Cut",
+    "category": "Long-form",
+    "type": "YouTube",
+    "meta": "18:42 · 2025",
+    "thumb": "/thumbs/t1.svg",
+    "video": { "kind": "youtube", "id": "i4pS-qQLtqc" },
+    "summary": "Tight pacing + clarity. Rebuilt structure, boosted retention with pattern interrupts.",
+    "role": "Edit · Sound · Color",
+    "tools": ["Premiere Pro", "After Effects"]
+  },
+  {
+    "id": "p2",
+    "title": "Creator Reels Pack",
+    "category": "Short-form",
+    "type": "Reels/TikTok",
+    "meta": "12 clips · 2025",
+    "thumb": "/thumbs/t2.svg",
+    "video": { "kind": "youtube", "id": "dQw4w9WgXcQ" },
+    "summary": "Hook-first rhythm. Captions, beat cuts, micro-zooms, clean transitions.",
+    "role": "Edit · Captions · Motion",
+    "tools": ["Premiere Pro", "After Effects"]
+  },
+  {
+    "id": "p3",
+    "title": "UGC Skincare Ad",
+    "category": "Ads / UGC",
+    "type": "Paid Social",
+    "meta": "0:30 · 2024",
+    "thumb": "/thumbs/t3.svg",
+    "video": { "kind": "youtube", "id": "tgbNymZ7vqY" },
+    "summary": "Fast value props + product clarity. Multiple variants for testing.",
+    "role": "Edit · Variations · Color",
+    "tools": ["Premiere Pro", "Photoshop"]
+  },
+  {
+    "id": "p4",
+    "title": "Motion Titles System",
+    "category": "Motion / VFX",
+    "type": "Motion Design",
+    "meta": "Pack · 2025",
+    "thumb": "/thumbs/t4.svg",
+    "video": { "kind": "youtube", "id": "9bZkp7q19f0" },
+    "summary": "Reusable title templates. Subtle blur, kinetic typography, clean easing.",
+    "role": "Motion · Design",
+    "tools": ["After Effects", "Photoshop"]
+  },
+  {
+    "id": "p5",
+    "title": "Long-form Podcast Edit",
+    "category": "Long-form",
+    "type": "Podcast",
+    "meta": "52:10 · 2024",
+    "thumb": "/thumbs/t5.svg",
+    "video": { "kind": "youtube", "id": "kJQP7kiw5Fk" },
+    "summary": "Removed dead air, improved flow, added chapter-like pacing moments.",
+    "role": "Edit · Audio cleanup",
+    "tools": ["Premiere Pro"]
+  },
+  {
+    "id": "p6",
+    "title": "Ecom UGC Variant Set",
+    "category": "Ads / UGC",
+    "type": "Meta/TikTok Ads",
+    "meta": "5 variants · 2025",
+    "thumb": "/thumbs/t2.svg",
+    "video": { "kind": "comingSoon" },
+    "summary": "Performance-focused variations: hooks, offers, CTAs.",
+    "role": "Edit · Versioning",
+    "tools": ["Premiere Pro", "After Effects"]
+  },
+  {
+    "id": "p7",
+    "title": "Short-form Story Edit",
+    "category": "Short-form",
+    "type": "TikTok",
+    "meta": "0:45 · 2025",
+    "thumb": "/thumbs/t3.svg",
+    "video": { "kind": "youtube", "id": "3JZ_D3ELwOQ" },
+    "summary": "Narrative compression: story beats kept, fluff removed.",
+    "role": "Edit · Captions",
+    "tools": ["Premiere Pro"]
+  },
+  {
+    "id": "p8",
+    "title": "VFX Accent Pass",
+    "category": "Motion / VFX",
+    "type": "VFX / Compositing",
+    "meta": "Shots · 2024",
+    "thumb": "/thumbs/t1.svg",
+    "video": { "kind": "youtube", "id": "CevxZvSJLk8" },
+    "summary": "Clean screen comps + subtle camera shake, glow, tracking.",
+    "role": "Compositing · Motion",
+    "tools": ["After Effects", "Blender"]
+  },
+  {
+    "id": "p9",
+    "title": "YouTube A/B Hook Cut",
+    "category": "Long-form",
+    "type": "YouTube",
+    "meta": "2 intros · 2025",
+    "thumb": "/thumbs/t4.svg",
+    "video": { "kind": "youtube", "id": "2Vv-BfVoq4g" },
+    "summary": "Two hook options with different pacing + curiosity gaps.",
+    "role": "Edit · Structure",
+    "tools": ["Premiere Pro"]
+  },
+  {
+    "id": "p10",
+    "title": "Brand Launch Teaser",
+    "category": "Ads / UGC",
+    "type": "Teaser",
+    "meta": "0:15 · 2024",
+    "thumb": "/thumbs/t5.svg",
+    "video": { "kind": "youtube", "id": "uelHwf8o7_U" },
+    "summary": "Minimal, premium feel. Beat-synced cuts + clean type.",
+    "role": "Edit · Motion",
+    "tools": ["After Effects", "Premiere Pro"]
+  }
+]
