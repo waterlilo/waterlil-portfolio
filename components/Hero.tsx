@@ -2,11 +2,14 @@
 
 import { motion } from "framer-motion";
 import { site } from "@/lib/site";
+import { HeroBackground } from "@/components/HeroBackground";
 
 export function Hero() {
   return (
-    <section id="top" className="pt-10 md:pt-16">
-      <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
+    <section id="top" className="relative pt-10 md:pt-16">
+      <HeroBackground />
+
+      <div className="relative mx-auto w-full max-w-6xl px-5 md:px-8">
         <div className="min-h-[72vh] md:min-h-[78vh] flex flex-col justify-center">
           <motion.p
             initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
