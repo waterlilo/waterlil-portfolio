@@ -1,3 +1,4 @@
+import React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -12,7 +13,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: `${site.name} — Video Editor`,
   description: site.tagline,
-  metadataBase: new URL("http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   openGraph: {
     title: `${site.name} — Video Editor`,
     description: site.tagline,
