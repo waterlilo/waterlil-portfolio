@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    // можно оставить пустым: мы используем локальные svg в /public/thumbs
+    // можно оставить пустым
   }
 };
 
